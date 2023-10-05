@@ -5,6 +5,60 @@ The format of this document is based on [Keep a Changelog](https://keepachangelo
 
 ## [Unreleased]
 
+### Changed
+* Enable publishing of robot joints in ROS 2 via `controlBoard_nws_ros2` for `iCubGazeboV2_5_visuomanip` (https://github.com/robotology/icub-models/pull/211).
+
+# [2.3.0] - 2023-09-11
+
+### Fixed
+
+* Fix location of `*_foot_*` links in iCub3 models (https://github.com/robotology/icub-models-generator/pull/243).
+* Fixed publication of xsens imu on iCubGazeboV2_7 (https://github.com/robotology/icub-models-generator/pull/246).
+
+# [2.2.2] - 2023-07-10
+
+### Fixed
+
+* Fix version number in CMake and package.xml files.
+
+# [2.2.1] - 2023-07-10
+
+### Fixed
+
+* Fix Gazebo Classic simulation of iCub 2.* and 3 models, that stopped working since the 2.1.0 release (https://github.com/robotology/icub-models-generator/pull/240). Note that this fix highlighted a bug in icub-models that was introduced in 1.26.0, namely that the names of the FT sensors in the iCub models is not consistent with the real robot. This issue will be fixed in a future release, see https://github.com/robotology/icub-models-generator/issues/242 for more details.
+
+### Changed
+
+* Tune position PID gains for torso for iCub 2.* (https://github.com/robotology/icub-models-generator/pull/241).
+
+# [2.2.0] - 2023-06-27
+
+**Due to an error, this release did not contained improvements.**
+
+# [2.1.0] - 2023-06-05
+
+### Changed
+
+* For consistency with the robot, now iCub simulated models publish their Force-Torque Sensors measurements via the [`multipleanalogsensorsserver`](https://www.yarp.it/latest//classMultipleAnalogSensorsServer.html) YARP device (https://github.com/robotology/icub-models/issues/198, https://github.com/robotology/icub-models-generator/pull/239, https://github.com/robotology/robots-configuration/pull/517).  The `name`  parameter passed to this device is: `/<robotPortPrefix>/<partName>/FT`.  This means that for each part there will be a `multipleanalogsensorsserver` device that will open the following YARP ports (these YARP ports are not meant to be accessed directly, but should be accessed instead via the [`multipleanalogsensorsclient`](https://www.yarp.it/git-master/classMultipleAnalogSensorsClient.html) device):
+  * `/<robotPortPrefix>/<partName>/FT/measures:o` : that publishes sensors information for the part, using the structure defined in https://github.com/robotology/yarp/blob/master/src/devices/multipleAnalogSensorsMsgs/multipleAnalogSensorsSerializations.thrift
+  * `/<robotPortPrefix>/<partName>/FT/rpc:o` : that expose several information related to the part via a YARP RPC port
+
+# [2.0.1] - 2023-03-31
+
+### Fixed
+
+* Harmonize iCubGazeboV2_5_visuomanip RGB cameras port names (https://github.com/robotology/icub-models/pull/196).
+
+# [2.0.0] - 2023-03-08
+
+### Fixed
+
+* Make models compatible with the YARP 3.8 (https://github.com/robotology/icub-models/issues/171, https://github.com/robotology/icub-models/pull/188, https://github.com/robotology/icub-models-generator/pull/231).
+* Fix incompatibility between RViz2 and iCubGazeboV3 model ( https://github.com/robotology/icub-models-generator/issues/229 ).
+* Uniform IMUs sensor names (https://github.com/robotology/icub-models-generator/pull/235).
+* Add partial support to expose sensor data of iCubGazeboV3 on ROS2 (https://github.com/robotology/icub-models-generator/pull/228).
+
+
 # [1.26.0] - 2022-12-09
 
 ### Changed
